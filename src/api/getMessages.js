@@ -4,3 +4,5 @@ export const getMessages =  async () => {
 	const res = await fetch( `${API_BASE}/comments` );
 	return await res.json();
 };
+
+
