@@ -1,12 +1,16 @@
 import React from 'react'
 import styles from './Chat.module.scss'
+import ChatItem from './ChatItem'
 
-function Chat() {
+
+function Chat( props ) {
+  const { messages } = props;
+  const mapToVChat = messages.map( m => <ChatItem key={m.id} message={m}/>);
   return (
     <div className={styles.container}>
-      Chat
+      {mapToVChat}
     </div>
   )
 }
 
-export default Chat
+export default Chat;
