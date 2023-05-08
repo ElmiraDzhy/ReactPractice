@@ -4,7 +4,7 @@ const { ACTIONTYPES } = CONSTANTS;
 
 export default function reducer(state, action) {
 	switch (action.type) {
-    case ACTIONTYPES.GET_MESSAGE_SUCCESS:
+		case ACTIONTYPES.GET_MESSAGE_SUCCESS:
 			return {
 				...state,
 				messages: action.payload,
@@ -16,11 +16,14 @@ export default function reducer(state, action) {
 				error: action.error,
 			};
 
-		default:
-      return {
-        ...state,
-      };
-	}
+		case ACTIONTYPES.ADD_NEW_MESSAGE:
+			return {
+				...state,
+				messages: [...state.messages, action.payload],
+			};
 
-	
+		default:
+			return state;
+	}
 }
+

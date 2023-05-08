@@ -6,6 +6,7 @@ import styles from "./Dashboard.module.scss";
 import { getMessages } from "../../api/getMessages";
 import reducer from "../../reducers/messageReducer";
 import { CONSTANTS } from "../../constants";
+import UserContext from "../../contexts/userContext";
 
 const { ACTIONTYPES } = CONSTANTS;
 
@@ -23,8 +24,7 @@ function Dashboard() {
 
 	useEffect(() => {
 		getMessages()
-      .then( ( data ) => {
-        console.log(data.comments)
+			.then((data) => {
 				dispatch({
 					type: ACTIONTYPES.GET_MESSAGE_SUCCESS,
 					payload: data.comments,
@@ -35,17 +35,31 @@ function Dashboard() {
 					type: ACTIONTYPES.GET_MESSAGE_ERROR,
 					error,
 				});
-      } );
+			});
 	}, []);
 
+	const createNewMessage = (text) => {
+		const newMessage = {
+			body: text,
+			id: state.messages.length + 1,
+			user,
+		};
+		dispatch({
+			type: ACTIONTYPES.ADD_NEW_MESSAGE,
+			payload: newMessage,
+		});
+	};
+
 	return (
-		<article className={styles["flex-row"]}>
-			<DialogList />
-			<div className={styles["flex-column"]}>
-        <Chat messages={state.messages} />
-				<MessageArea />
-			</div>
-		</article>
+		<UserContext.Provider value={user}>
+			<main className={styles["flex-row"]}>
+				<DialogList />
+				<div className={styles["flex-column"]}>
+					<Chat messages={state.messages} />
+					<MessageArea addMessage={createNewMessage} />
+				</div>
+			</main>
+		</UserContext.Provider>
 	);
 }
 

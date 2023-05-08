@@ -3,4 +3,18 @@
   width: 100%;
   border: 1px solid black;
   margin-top: auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.text-area{
+  padding: 5px;
+  max-width: 100%;
+  width: 100%;
+  
+}
+
+.button{
+  border: none;
 }
